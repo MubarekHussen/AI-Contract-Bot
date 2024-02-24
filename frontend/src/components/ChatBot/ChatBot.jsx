@@ -8,13 +8,13 @@ import { mdiArrowRight } from '@mdi/js';
 const ChatMessage = ({ message, isUserQuestion }) => (
   <div className={`flex flex-col ${isUserQuestion ? 'items-end' : 'items-start'} mb-4`}>
     <div className={`pt-6 pb-8 pl-12 pr-2 rounded ${isUserQuestion ? 'bg-blue-50 w-8/12 text-right pr-14' : 'bg-purple-50 w-10/12'}`}>
-      <p className="text-3xl">{message}</p>
+      <p className="text-2xl">{message}</p>
     </div>
   </div>
 );
 
 const Sidebar = ({ onFileUpload, uploadedFiles, onRemoveFile, onUploadFiles }) => (
-    <div className="pt-96 bg-gray-100">
+    <div className="pt-48 bg-gray-100">
       <h2 className="text-blue-500 text-4xl">Upload Your File</h2>
       <Dropzone onDrop={(acceptedFiles) => onFileUpload(acceptedFiles)}>
         {({ getRootProps, getInputProps }) => (
@@ -118,7 +118,7 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="flex w-full h-full m-20 pt-16 mb-48">
+    <div className="flex w-full h-full m-20 pt-16">
       <div className="w-1/3 p-3 bg-gray-100 overflow-auto">
         <Sidebar
           onFileUpload={handleFileUpload}
@@ -138,7 +138,7 @@ const ChatBot = () => {
         <div className="flex h-20 overflow-auto pl-24">
             <input
             type="text"
-            className="w-1/2 mr-2 p-2 border rounded text-3xl"
+            className="w-1/2 mr-2 p-2 border rounded text-2xl"
             placeholder="Talk to Assistant"
             value={newMessage}
             onChange={handleInputChange}
