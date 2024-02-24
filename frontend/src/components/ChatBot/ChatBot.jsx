@@ -6,11 +6,11 @@ import Icon from '@mdi/react';
 import { mdiArrowRight } from '@mdi/js';
 
 const ChatMessage = ({ message, isUserQuestion }) => (
-    <div className={`flex flex-col ${isUserQuestion ? 'items-start' : 'items-end'}`}>
-      <div className={`p-2 rounded ${isUserQuestion ? 'bg-blue-200' : 'bg-green-200'}`}>
-        <p className="text-3xl">{message}</p>
-      </div>
+  <div className={`flex flex-col ${isUserQuestion ? 'items-end' : 'items-start'} mb-4`}>
+    <div className={`pt-6 pb-8 pl-12 pr-2 rounded ${isUserQuestion ? 'bg-blue-50 w-8/12 text-right pr-14' : 'bg-purple-50 w-10/12'}`}>
+      <p className="text-3xl">{message}</p>
     </div>
+  </div>
 );
 
 const Sidebar = ({ onFileUpload, uploadedFiles, onRemoveFile, onUploadFiles }) => (
@@ -118,7 +118,7 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="flex w-full h-full m-20 pt-16">
+    <div className="flex w-full h-full m-20 pt-16 mb-48">
       <div className="w-1/3 p-3 bg-gray-100 overflow-auto">
         <Sidebar
           onFileUpload={handleFileUpload}
@@ -126,6 +126,7 @@ const ChatBot = () => {
           onRemoveFile={handleRemoveFile}
           onUploadFiles={handleUploadFiles}
         />
+
       </div>
       <div className="w-2/3 p-3">
         <div>
@@ -134,11 +135,11 @@ const ChatBot = () => {
           ))}
         </div>
         <form className="fixed bottom-0 w-full bg-gray-100 p-4" onSubmit={handleFormSubmit}>
-        <div className="flex h-20 overflow-auto">
+        <div className="flex h-20 overflow-auto pl-24">
             <input
             type="text"
             className="w-1/2 mr-2 p-2 border rounded text-3xl"
-            placeholder="Type your question here..."
+            placeholder="Talk to Assistant"
             value={newMessage}
             onChange={handleInputChange}
             />
