@@ -117,13 +117,13 @@ def evaluate_individual_questions(chain, vectorstore, faithfulness_evaluator, re
             "source_documents": relevant_docs, 
             "query": question_answer_pair["query"], 
             "ground_truths": question_answer_pair["ground_truths"],
-            "answer": chain_result  # assuming 'chain_result' contains the generated answer
+            "answer": chain_result
         }
         print(evaluation_result)
         results_df = pd.concat([results_df, pd.DataFrame([{
             "Query": question_answer_pair["query"],
             "Expected Answer": question_answer_pair["ground_truths"][0],
-            "Generated Answer": evaluation_result["answer"],  # make sure this is in the correct position
+            "Generated Answer": evaluation_result["answer"],
             "Faithfulness Score": faithfulness_evaluator(evaluation_result)["faithfulness_score"],
             "Answer Relevancy Score": relevancy_evaluator(evaluation_result)["answer_relevancy_score"],
             "Context Precision Score": precision_evaluator(evaluation_result)["context_precision_score"],

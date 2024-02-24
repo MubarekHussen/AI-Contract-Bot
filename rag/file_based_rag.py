@@ -97,7 +97,7 @@ def main():
     data = load_data(loader)
     print(f'You have {len(data)} documents in your data')
     print(f'There are {len(data[0].page_content)} characters in your document')
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=256)
     docs = split_text(text_splitter, data)
     embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_KEY)
     client = create_client(OPENAI_KEY)

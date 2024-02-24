@@ -7,7 +7,6 @@ import sys
 from dotenv import load_dotenv
 sys.path.append('/home/mubarek/all_about_programing/10x_projects/AI-Contract-Bot')
 
-# Import necessary functions from file_based_rag module
 from rag.file_based_rag import load_data, split_text, create_client, define_input_structure, load_text_into_vectorstore, get_answer
 from langchain.document_loaders import DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
