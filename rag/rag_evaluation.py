@@ -145,9 +145,9 @@ def main():
     chain = load_qa_chain(
         OpenAI(openai_api_key=OPENAI_KEY, temperature=0),
         chain_type="stuff")
+    eval_questions, eval_answers = get_evaluation_data()
     question_answer_pairs = [
-        {"query": q, "ground_truths": [eval_answers[    eval_questions, eval_answers = get_evaluation_data()
-i]]}
+        {"query": q, "ground_truths": [eval_answers[i]]}
         for i, q in enumerate(eval_questions)
     ]
     faithfulness_evaluator, relevancy_evaluator, precision_evaluator, recall_evaluator = create_evaluation_chains()

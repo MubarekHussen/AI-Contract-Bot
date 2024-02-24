@@ -1,3 +1,8 @@
-langchain==0.1.8
+fastapi==0.109.2
+langchain==0.1.9
+langchain_openai==0.0.7
+pandas==2.2.1
+pydantic==2.6.2
 python-dotenv==1.0.1
+ragas==0.0.22
 weaviate_client==4.4b2
