@@ -4,10 +4,10 @@ from dotenv import load_dotenv
 import pandas as pd
 from langchain.document_loaders import DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores import Weaviate
 from langchain.chains.question_answering import load_qa_chain
-from langchain.llms import OpenAI
+from langchain_openai import OpenAI
 sys.path.append('/home/mubarek/all_about_programing/10x_projects/AI-Contract-Bot')
 from scripts.QA_dataset import get_evaluation_data
 import weaviate
@@ -145,9 +145,9 @@ def main():
     chain = load_qa_chain(
         OpenAI(openai_api_key=OPENAI_KEY, temperature=0),
         chain_type="stuff")
-    eval_questions, eval_answers = get_evaluation_data()
     question_answer_pairs = [
-        {"query": q, "ground_truths": [eval_answers[i]]}
+        {"query": q, "ground_truths": [eval_answers[    eval_questions, eval_answers = get_evaluation_data()
+i]]}
         for i, q in enumerate(eval_questions)
     ]
     faithfulness_evaluator, relevancy_evaluator, precision_evaluator, recall_evaluator = create_evaluation_chains()

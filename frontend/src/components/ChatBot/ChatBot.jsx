@@ -8,12 +8,12 @@ import { mdiArrowRight } from '@mdi/js';
 const ChatMessage = ({ message, isUserQuestion }) => (
     <div className={`flex flex-col ${isUserQuestion ? 'items-start' : 'items-end'}`}>
       <div className={`p-2 rounded ${isUserQuestion ? 'bg-blue-200' : 'bg-green-200'}`}>
-        <p className="text-3xl">{message}</p> {/* Add text size class here */}
+        <p className="text-3xl">{message}</p>
       </div>
     </div>
 );
 
-  const Sidebar = ({ onFileUpload, uploadedFiles, onRemoveFile }) => (
+const Sidebar = ({ onFileUpload, uploadedFiles, onRemoveFile, onUploadFiles }) => (
     <div className="pt-96 bg-gray-100">
       <h2 className="text-blue-500 text-4xl">Upload Your File</h2>
       <Dropzone onDrop={(acceptedFiles) => onFileUpload(acceptedFiles)}>
@@ -24,8 +24,13 @@ const ChatMessage = ({ message, isUserQuestion }) => (
           </div>
         )}
       </Dropzone>
+      <div className="flex justify-center">
+        <button className="text-white bg-blue-500 px-5 py-3 rounded" onClick={onUploadFiles}>
+            Upload Files
+        </button>
+      </div>
       <div>
-        <h3 className="text-blue-500 text-3xl">Uploaded Files:</h3>
+        <h3 className="text-blue-500 text-3xl pt-5">Uploaded Files:</h3>
         <ul>
           {uploadedFiles.map((file, index) => (
             <li key={index} className="my-2 flex justify-between items-center">
@@ -38,7 +43,7 @@ const ChatMessage = ({ message, isUserQuestion }) => (
         </ul>
       </div>
     </div>
-  );
+);
 
 const ChatBot = () => {
   const [newMessage, setNewMessage] = useState('');
@@ -49,6 +54,7 @@ const ChatBot = () => {
     },
   ]);
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [pendingFiles, setPendingFiles] = useState([]);
 
   const handleInputChange = (e) => {
     setNewMessage(e.target.value);
@@ -60,35 +66,44 @@ const ChatBot = () => {
         message: newMessage,
         isUserQuestion: true,
       };
-
-      const formData = new FormData();
-      formData.append('user_question', newMessage);
-
-      uploadedFiles.forEach((file) => {
-        formData.append('files', file);
-      });
-
-      const chatbotResponse = {
-        message: '',
-        isUserQuestion: false,
-      };
-
+  
+      setMessages([...messages, newUserQuestion]);
+  
       try {
-        const response = await axios.post('http://localhost:5000/api/chat', formData);
-
-        chatbotResponse.message = response.data.response;
+        const response = await axios.post('http://localhost:8000/query', { text: newMessage });
+  
+        const chatbotResponse = {
+          message: response.data.Answer,
+          isUserQuestion: false,
+        };
+  
+        setMessages([...messages, newUserQuestion, chatbotResponse]);
       } catch (error) {
         console.error('Error sending message:', error);
       }
-
-      setMessages([...messages, newUserQuestion, chatbotResponse]);
+  
       setNewMessage('');
-      setUploadedFiles([]);
     }
   };
 
   const handleFileUpload = (files) => {
     setUploadedFiles([...uploadedFiles, ...files]);
+    setPendingFiles([...pendingFiles, ...files]);
+  };
+
+  const handleUploadFiles = async () => {
+    const formData = new FormData();
+  
+    pendingFiles.forEach((file) => {
+      formData.append('file', file);
+    });
+  
+    try {
+      await axios.post('http://localhost:8000/upload', formData);
+      setPendingFiles([]);
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
   };
 
   const handleRemoveFile = (index) => {
@@ -109,6 +124,7 @@ const ChatBot = () => {
           onFileUpload={handleFileUpload}
           uploadedFiles={uploadedFiles}
           onRemoveFile={handleRemoveFile}
+          onUploadFiles={handleUploadFiles}
         />
       </div>
       <div className="w-2/3 p-3">

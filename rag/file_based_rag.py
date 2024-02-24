@@ -2,11 +2,11 @@ from dotenv import load_dotenv
 import os
 from langchain.document_loaders import DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
 import weaviate
 from langchain.vectorstores import Weaviate
 from langchain.chains.question_answering import load_qa_chain
-from langchain.llms import OpenAI
+from langchain_openai import OpenAI
 
 
 def load_env_vars():
