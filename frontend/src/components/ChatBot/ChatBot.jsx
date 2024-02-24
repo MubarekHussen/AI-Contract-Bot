@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import 'tailwindcss/tailwind.css'; // Import Tailwind CSS
+import 'tailwindcss/tailwind.css';
 import Icon from '@mdi/react';
 import { mdiArrowRight } from '@mdi/js';
 
