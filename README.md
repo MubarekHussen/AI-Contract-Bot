@@ -15,8 +15,8 @@ AI-Contract-Bot is part of the Lizzy AI startup's initiative to develop the next
 
 # User Interface
 
-![Interface](screenshots/Screenshot%20from%202024-02-24%2019-25-54.png)
 ![Interface](screenshots/Screenshot%20from%202024-02-24%2022-12-01.png)
+![Interface](screenshots/Screenshot%20from%202024-02-24%2019-25-54.png)
 
 ## Getting Started
 
